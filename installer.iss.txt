@@ -1,0 +1,65 @@
+#define MyAppName "TimeWeaver X"
+#define MyAppExe "TimeWeaverX.exe"
+
+[Setup]
+AppName={#MyAppName}
+AppVersion=1.0
+AppPublisher=Maksim
+DefaultDirName={pf}\{#MyAppName}
+DefaultGroupName={#MyAppName}
+
+SourceDir={#SourcePath}
+OutputDir={#SourcePath}\installer_out
+OutputBaseFilename=TimeWeaverX_Setup
+
+SetupIconFile={#SourcePath}\foto.ico
+UninstallDisplayIcon={app}\{#MyAppExe}
+
+Compression=lzma
+SolidCompression=yes
+WizardStyle=classic
+
+WizardImageFile={#SourcePath}\assets\wizard_left.bmp
+WizardSmallImageFile={#SourcePath}\assets\wizard_small.bmp
+
+ShowLanguageDialog=yes
+DisableDirPage=no
+DisableReadyPage=no
+DisableWelcomePage=no
+DisableFinishedPage=no
+DisableProgramGroupPage=yes
+
+[Languages]
+Name: "en"; MessagesFile: "compiler:Default.isl"
+Name: "uk"; MessagesFile: "compiler:Languages\Ukrainian.isl"
+Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"
+Name: "de"; MessagesFile: "compiler:Languages\German.isl"
+Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
+Name: "es"; MessagesFile: "compiler:Languages\Spanish.isl"
+Name: "pl"; MessagesFile: "compiler:Languages\Polish.isl"
+Name: "it"; MessagesFile: "compiler:Languages\Italian.isl"
+Name: "pt"; MessagesFile: "compiler:Languages\Portuguese.isl"
+Name: "tr"; MessagesFile: "compiler:Languages\Turkish.isl"
+Name: "cs"; MessagesFile: "compiler:Languages\Czech.isl"
+Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl"
+Name: "hu"; MessagesFile: "compiler:Languages\Hungarian.isl"
+
+[Tasks]
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checkedonce
+Name: "autostart"; Description: "Запускати TimeWeaver X разом із Windows"; GroupDescription: "Додаткові параметри"; Flags: unchecked
+
+[Files]
+Source: "{#SourcePath}\dist\{#MyAppExe}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourcePath}\foto.ico"; DestDir: "{app}"; Flags: ignoreversion
+
+[Icons]
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExe}"; IconFilename: "{app}\foto.ico"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExe}"; IconFilename: "{app}\foto.ico"; Tasks: desktopicon
+
+[Registry]
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; \
+ValueType: string; ValueName: "TimeWeaverX"; ValueData: """{app}\{#MyAppExe}"""; \
+Tasks: autostart; Flags: uninsdeletevalue
+
+[Run]
+Filename: "{app}\{#MyAppExe}"; Description: "{cm:LaunchProgram,{#MyAppName}}"; Flags: nowait postinstall skipifsilent
